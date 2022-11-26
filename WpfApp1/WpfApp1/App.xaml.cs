@@ -13,5 +13,13 @@ namespace WpfApp1
     /// </summary>
     public partial class App : Application
     {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            SQLiteDB db = new SQLiteDB();
+            db.createDbFile();
+            db.createDbConnection();
+            db.createTables();
+            db.fillTableLatLonPositions();
+        }
     }
 }

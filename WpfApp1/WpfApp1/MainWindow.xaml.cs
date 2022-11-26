@@ -24,5 +24,10 @@ namespace WpfApp1
         {
             InitializeComponent();
         }
+
+        private void bGetDataFromWeatherAPI_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
