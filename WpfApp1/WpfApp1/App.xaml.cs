@@ -17,9 +17,11 @@ namespace WpfApp1
         {
             SQLiteDB db = new SQLiteDB();
             db.createDbFile();
-            db.createDbConnection();
-            db.createTables();
-            db.fillTableLatLonPositions();
+            using (var connection = db.createDbConnection())
+            {
+                db.createTables();
+                db.fillTableLatLonPositions();
+            }
         }
     }
 }

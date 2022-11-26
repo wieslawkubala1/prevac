@@ -12,7 +12,7 @@ namespace WpfApp1
     public class SQLiteDB
     {
         SQLiteConnection dbConnection;
-        SQLiteCommand command;
+        public SQLiteCommand command;
         string sqlCommand;
         string dbPath = System.Environment.CurrentDirectory + "\\DB";
         string dbFilePath;
@@ -27,13 +27,15 @@ namespace WpfApp1
             }
         }
 
-        public string createDbConnection()
+        public SQLiteConnection createDbConnection()
         {
+            if (dbFilePath == null)
+                createDbFile();
             string strCon = string.Format("Data Source={0};", dbFilePath);
             dbConnection = new SQLiteConnection(strCon);
             dbConnection.Open();
             command = dbConnection.CreateCommand();
-            return strCon;
+            return dbConnection;
         }
 
         public void createTables()
@@ -43,8 +45,8 @@ namespace WpfApp1
                 sqlCommand = @"CREATE TABLE LatLonPositions
                                 (
                                     id INTEGER PRIMARY KEY AUTOINCREMENT,
-                                    lat decimal(14, 2),
-                                    lon decimal(14, 2),
+                                    lat varchar(20),
+                                    lon varchar(20),
                                     name varchar(300)
                                 )";
                 executeQuery(sqlCommand);
@@ -141,7 +143,7 @@ namespace WpfApp1
         {
             if (!checkIfTableContainsData("LatLonPositions"))
             {
-                sqlCommand = "insert into LatLonPositions (lat, lon, name) values (35.88, 76.51, 'K2')";
+                sqlCommand = "insert into LatLonPositions (lat, lon, name) values ('35.88', '76.51', 'K2')";
                 executeQuery(sqlCommand);
             }
         }
