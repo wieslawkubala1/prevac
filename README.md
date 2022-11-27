@@ -7,4 +7,5 @@
 https://oxyplot.readthedocs.io/en/latest/getting-started/hello-wpf.html
 https://oxyplot.github.io/
 
-6. TODO: raportowanie przez bazę temperatury w formie procedury wbudowanej.
+6. Dane dostępne są z poziomu bazy danych jako select w tabeli, bo SQLite nie posiada procedur wbudowanych:
+select * from TemperaturesInK2 order by id

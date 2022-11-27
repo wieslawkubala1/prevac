@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using OxyPlot.Series;
+using OxyPlot;
+using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
@@ -121,6 +124,30 @@ namespace WpfApp1
                 db.command.ExecuteNonQuery();
 
 
+                db.command.Parameters.Clear();
+                db.command.CommandText = "delete from TemperaturesInK2";
+                db.command.ExecuteNonQuery();
+
+                dynamic stuff = JsonConvert.DeserializeObject(result2);
+
+                db.command.Parameters.Clear();
+                db.command.CommandText = "insert into TemperaturesInK2 (dt, temp, temp_min, temp_max) values(@dt, @temp, @temp_min, @temp_max)";
+
+                for (int i = 0; i < stuff.list.Count; i++)
+                {
+                    long dt = stuff.list[i].dt;
+                    double temp = stuff.list[i].main.temp;
+                    double temp_min = stuff.list[i].main.temp_min;
+                    double temp_max = stuff.list[i].main.temp_max;
+                    string dt_txt = stuff.list[i].dt_txt;
+                    DateTime dt2 = MainViewModel.UnixTimestampToDateTime(dt);
+
+                    db.command.Parameters.AddWithValue("@dt", dt2);
+                    db.command.Parameters.AddWithValue("@temp", temp);
+                    db.command.Parameters.AddWithValue("@temp_min", temp_min);
+                    db.command.Parameters.AddWithValue("@temp_max", temp_max);
+                    db.command.ExecuteNonQuery();
+                }
 
             }
 

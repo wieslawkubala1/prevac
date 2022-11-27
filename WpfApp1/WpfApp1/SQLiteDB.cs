@@ -113,6 +113,21 @@ namespace WpfApp1
                  */
                 executeQuery(sqlCommand);
             }
+
+            if (!checkIfExist("TemperaturesInK2"))
+            {
+                sqlCommand = @"CREATE TABLE TemperaturesInK2
+                                (
+                                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                    dt datetime,
+                                    temp numeric,
+                                    temp_min numeric,
+                                    temp_max numeric
+                                )";
+
+                executeQuery(sqlCommand);
+            }
+
         }
 
         public bool checkIfExist(string tableName)
