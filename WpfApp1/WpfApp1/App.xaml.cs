@@ -20,7 +20,6 @@ namespace WpfApp1
             using (var connection = db.createDbConnection())
             {
                 db.createTables();
-                db.fillTableLatLonPositions();
             }
         }
     }
