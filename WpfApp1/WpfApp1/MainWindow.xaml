@@ -7,7 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Button x:Name="bGetDataFromWeatherAPI" Content="Get data from weather API" HorizontalAlignment="Left" Margin="33,29,0,0" VerticalAlignment="Top" Click="bGetDataFromWeatherAPI_Click"/>
-
+        <Button x:Name="bGetDataFromWeatherAPI" Content="1. Get data from weather API and save to database" 
+                HorizontalAlignment="Left" Margin="33,0,0,385" VerticalAlignment="Top" Click="bGetDataFromWeatherAPI_Click"/>
+        <Button x:Name="bDrawData" Content="2. Draw chart from data in database" HorizontalAlignment="Left" Height="20"
+                Margin="369,0,0,0" VerticalAlignment="Top" Click="bDrawData_Click"/>
     </Grid>
 </Window>

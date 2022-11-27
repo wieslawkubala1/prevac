@@ -132,10 +132,17 @@ namespace WpfApp1
 
         public bool checkIfTableContainsData(string tableName)
         {
-            command.CommandText = "SELECT count(*) FROM " + tableName;
-            var result = command.ExecuteScalar();
+            if (dbFilePath == null)
+                createDbFile();
 
-            return Convert.ToInt32(result) > 0 ? true : false;
+            using (var connection = createDbConnection())
+            {
+
+                command.CommandText = "SELECT count(*) FROM " + tableName;
+                var result = command.ExecuteScalar();
+
+                return Convert.ToInt32(result) > 0 ? true : false;
+            }
         }
 
 

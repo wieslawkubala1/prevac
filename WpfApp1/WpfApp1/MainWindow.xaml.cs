@@ -63,7 +63,7 @@ namespace WpfApp1
                 {
                     db.command.Parameters.Clear();
                     db.command.CommandText = @"insert into LatLonPositions (lat, lon)
-                                                    (@lat, @lon)";
+                                                    values(@lat, @lon)";
                     db.command.Parameters.AddWithValue("@lat", K2_lat);
                     db.command.Parameters.AddWithValue("@lon", K2_lon);
                     db.command.ExecuteNonQuery();
@@ -125,6 +125,21 @@ namespace WpfApp1
             }
 
             MessageBox.Show("The data was downloaded and saved to the database.");
+        }
+
+        private void bDrawData_Click(object sender, RoutedEventArgs e)
+        {
+            SQLiteDB db = new SQLiteDB();
+            db.createDbFile();
+            if (!db.checkIfTableContainsData("WeatherJsons"))
+                MessageBox.Show("Click first 'Get data from weather API and save to database' button");
+            else
+            {
+                ChartWindow chartWindow = new ChartWindow();
+                chartWindow.Owner = this;
+                chartWindow.ShowDialog();
+                chartWindow = null;
+            }
         }
     }
 }
